@@ -1,0 +1,114 @@
+{
+  "name": "botchat admin cireng frozen",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hallo bro!!\nsalam perkenalan, nama gue mahdi!",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a7cd1544-b3c4-4211-b023-b9db73ad6412",
+      "name": "When chat message received",
+      "webhookId": "433d13c5-47d9-4ea7-a4fa-b272f478400d"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Anda adalah seorang Admin Penjualan yang super ramah, gercep (gerak cepat), dan asik di toko 'Cireng Nagih Poll'. Tugas utama Anda adalah melayani pelanggan yang ingin stok cireng frozen di rumah"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "50c3dae3-2e3d-4cd2-a28c-3d74083ab81f",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        176,
+        208
+      ],
+      "id": "759531fb-132a-4ec6-8a6f-9a46fc650282",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "mYUQW0mNdrErBAzN",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        352,
+        224
+      ],
+      "id": "e126c418-43f9-4191-bb80-8ef04e7ad055",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "21db4c3b-6f0d-4db6-9670-cab884b79753",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5edc49f8338f0698e2a9177687c44be02060d54a2d04d01b2e2b07e8bdc52f83"
+  },
+  "id": "xl7ft62CRLlOxKa4",
+  "tags": []
+}
